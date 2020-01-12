@@ -8,22 +8,22 @@ volumes:
 
 services:
 
-  mysql:
-   image: mysql:8.0
-   restart: on-failure
-   networks:
-     - backend
-   volumes:
-     - type: bind
-       source: ./docker/mysql/data
-       target: /var/lib/mysql
-   environment:
-     MYSQL_ROOT_PASSWORD: root
-     MYSQL_DATABASE: main_db
-     MYSQL_USER: dev
-     MYSQL_PASSWORD: dev123
-   ports:
-     - "3306:3306"
+  db:
+    image: mysql:5.6
+    restart: on-failure
+    networks:
+      - backend
+    volumes:
+      - type: bind
+        source: ./docker/mysql/data
+        target: /var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: main_db
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: dev123
+    ports:
+      - "3306:3306"
 
   nginx:
     image: nginx:1.15.3-alpine
@@ -39,7 +39,7 @@ services:
       - '${NGINX_PORT}:80'
     depends_on:
       - php
-      - mysql
+      - db
 
   php:
     build:
