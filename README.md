@@ -4,7 +4,7 @@ A personnal docker-compose environment for symfony 4 apps.
 Provides an nginx http server and a mysql 8 database.
 
 ## Getting Started
-
+Create a directory called /apps.
 Create your symfony project in the /apps directory.
 Create a .env file based on .env.dist and change the APP_NAME var with your new app name.
 
