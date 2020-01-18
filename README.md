@@ -1,14 +1,15 @@
 # Docker-set
 
 A personnal docker-compose environment for symfony 4 apps.
-Provides an nginx http server and a mysql 8 database.
+Provides an nginx http server and a mysql 5.6 database.
 
 ## Getting Started
 Create your symfony project in the apps/ directory.
-Create the directory docker/mysql/data/
-Create a .env file based on .env.dist and change the APP_NAME var with your new app name.
+At the root directory of this docker-set project, create a .env file based on .env.dist and change the APP_NAME var with your new app name.
 
-Run docker-compose up -d
+Add `DATABASE_URL=mysql://dev:dev123@db:3306/main_db` to the Sf4 .env file.
+
+Run `docker-compose up -d`
 
 Your app is available at localhost:80
 
