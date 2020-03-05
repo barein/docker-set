@@ -1,3 +1,5 @@
 docker/mysql/data/*
 !docker/mysql/data/.gitignore
+apps/*
+!apps/.gitignore
 .env
