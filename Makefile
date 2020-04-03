@@ -1,7 +1,10 @@
-.PHONY: start in_project install cache-clear
+.PHONY: start stop in_project install cache-clear
 
 start:
 	docker-compose up -d
+
+stop:
+	docker-compose down
 
 in_project:
 	docker-compose exec php bash

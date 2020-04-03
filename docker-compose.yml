@@ -9,7 +9,7 @@ volumes:
 services:
 
   db:
-    image: mysql:5.6
+    image: mariadb:10.4.12
     restart: on-failure
     networks:
       - backend
@@ -51,5 +51,5 @@ services:
     volumes:
       - type: bind
         source: ./apps/${APP_NAME}
-        target: /usr/src/app
-    user: 1000:1000
+        target: /app
+#    user: 1000:1000
