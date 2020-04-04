@@ -10,7 +10,7 @@ At the root directory of this docker-set project, create a .env file based on .e
 Set doctrine.dbal.server_version to 'mariadb-10.4.12', in doctrine.yaml.
 Add `DATABASE_URL=mysql://dev:dev123@db:3306/main_db` to the Sf4 .env file.
 
-Run `docker-compose up -d`
+Run `make start`
 
 Your app is available at localhost:80
 
