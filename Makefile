@@ -25,8 +25,16 @@ exec:
 install:
 	$(EXEC) composer install
 
-.PHONY: cc
+.PHONY: cc ## clear Symfony cache and warm it up
 cc:
 	$(EXECROOT) rm -rf var/cache/*
 	$(EXEC) $(CONSOLE) cache:clear --no-warmup
 	$(EXEC) $(CONSOLE) cache:warmup
+
+.PHONY: cs-dump ## Dump php-cs-fixer errors
+cs-dump:
+	$(EXEC) vendor/bin/php-cs-fixer fix --dry-run -v
+
+.PHONY: cs ## Fix php-cs-fixer errors
+cs:
+	$(EXEC) vendor/bin/php-cs-fixer fix -v
