@@ -21,13 +21,14 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 
 #RUN adduser -home /home/exploit exploit -u 1000
 
-#ARG USER_ID
-#ARG GROUP_ID
+ARG USER_ID
+ARG GROUP_ID
+ARG DEVELOPER_NAME
+
+RUN groupadd -f -g $GROUP_ID $DEVELOPER_NAME && \
+    useradd -u $USER_ID -g $GROUP_ID $DEVELOPER_NAME
 
 #RUN chown 1000:1000 /opt/bitnami/php/logs/php-fpm.log
-
-#RUN groupadd -f -g 1000 user && useradd -u 1000 -g 1000 user
-
 #USER user
 #"php-fpm -F --pid /opt/bitnami/php/tmp/php-fpm.pid -y /opt/bitnami/php/etc/php-fpm.conf
 

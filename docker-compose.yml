@@ -45,6 +45,10 @@ services:
     build:
       context: .
       dockerfile: docker/php/Dockerfile
+      args:
+        USER_ID: ${USER_ID}
+        GROUP_ID: ${GROUP_ID}
+        DEVELOPER_NAME: ${DEVELOPER_NAME}
     restart: on-failure
     networks:
       - backend

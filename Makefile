@@ -1,13 +1,14 @@
 USERID=$(shell id -u)
 GROUPID=$(shell id -g)
+USERNAME=$(shell whoami)
 
 CONSOLE=php bin/console
 EXECROOT=docker-compose exec php
 EXEC=docker-compose exec -u $(USERID):$(GROUPID) php
 
-.PHONY: start
+.PHONY: start ## Launch containers creating current user in php container
 start:
-	docker-compose up -d
+	USER_ID=$(USERID) GROUP_ID=$(GROUPID) DEVELOPER_NAME=$(USERNAME) docker-compose up -d
 
 .PHONY: stop
 stop:
