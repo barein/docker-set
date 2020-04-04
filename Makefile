@@ -1,16 +1,32 @@
-.PHONY: start stop in_project install cache-clear
+USERID=$(shell id -u)
+GROUPID=$(shell id -g)
 
+CONSOLE=php bin/console
+EXECROOT=docker-compose exec php
+EXEC=docker-compose exec -u $(USERID):$(GROUPID) php
+
+.PHONY: start
 start:
 	docker-compose up -d
 
+.PHONY: stop
 stop:
 	docker-compose down
 
-in_project:
-	docker-compose exec php bash
+.PHONY: exec_root
+exec_root:
+	$(EXECROOT) bash
 
+.PHONY: exec
+exec:
+	$(EXEC) bash
+
+.PHONY: install
 install:
-	docker-compose exec php composer install
+	$(EXEC) composer install
 
-cache-clear:
-	docker-compose exec php bin/console c:c
+.PHONY: cc
+cc:
+	$(EXECROOT) rm -rf var/cache/*
+	$(EXEC) $(CONSOLE) cache:clear --no-warmup
+	$(EXEC) $(CONSOLE) cache:warmup
