@@ -48,7 +48,7 @@ services:
       args:
         USER_ID: ${USER_ID}
         GROUP_ID: ${GROUP_ID}
-        DEVELOPER_NAME: ${DEVELOPER_NAME}
+        USERNAME: ${USERNAME}
     restart: on-failure
     networks:
       - backend
@@ -56,4 +56,3 @@ services:
       - type: bind
         source: ./apps/${APP_NAME}
         target: /app
-#    user: 1000:1000

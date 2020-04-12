@@ -3,12 +3,16 @@ GROUPID=$(shell id -g)
 USERNAME=$(shell whoami)
 
 CONSOLE=php bin/console
-EXECROOT=docker-compose exec php
-EXEC=docker-compose exec -u $(USERID):$(GROUPID) php
+EXECROOT=docker-compose exec -u 0:0 php
+EXEC=docker-compose exec php
 
-.PHONY: start ## Launch containers creating current user in php container
+.PHONY: build ## buil containers creating current user in php container
+build:
+	USER_ID=$(USERID) GROUP_ID=$(GROUPID) USERNAME=$(USERNAME) docker-compose build
+
+.PHONY: start
 start:
-	USER_ID=$(USERID) GROUP_ID=$(GROUPID) DEVELOPER_NAME=$(USERNAME) docker-compose up -d
+	docker-compose up -d
 
 .PHONY: stop
 stop:
@@ -29,8 +33,7 @@ install:
 .PHONY: cc ## clear Symfony cache and warm it up
 cc:
 	$(EXECROOT) rm -rf var/cache/*
-	$(EXEC) $(CONSOLE) cache:clear --no-warmup
-	$(EXEC) $(CONSOLE) cache:warmup
+	$(EXEC) $(CONSOLE) cache:clear
 
 .PHONY: cs-dump ## Dump php-cs-fixer errors
 cs-dump:
@@ -43,3 +46,6 @@ cs:
 .PHONY: phpstan ## Run phpstan
 phpstan:
 	$(EXEC) vendor/bin/phpstan analyse src --level 7 -c phpstan.neon
+
+.PHONY: ci
+ci: cs-dump phpstan
