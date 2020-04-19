@@ -43,9 +43,9 @@ cs-dump:
 cs:
 	$(EXEC) vendor/bin/php-cs-fixer fix -v
 
-.PHONY: phpstan ## Run phpstan
-phpstan:
+.PHONY: stan ## Run phpstan
+stan:
 	$(EXEC) vendor/bin/phpstan analyse src --level 7 -c phpstan.neon
 
 .PHONY: ci
-ci: cs-dump phpstan
+ci: cs-dump stan
