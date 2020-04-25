@@ -1,5 +1,7 @@
-docker/mysql/data/*
-!docker/mysql/data/.gitignore
+docker/db/mysql/*
+!docker/db/mysql/.gitignore
+docker/db/postgresql/*
+!docker/db/postgresql/.gitignore
 apps/*
 !apps/.gitignore
 .env

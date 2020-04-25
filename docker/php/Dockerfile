@@ -10,7 +10,9 @@ RUN apt-get update \
     && echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/php7.list \
     && apt update \
 ##Install php7.4 extensions
-    && apt install -y php7.4-mysql php7.4-curl php7.4-json php7.4-gd php7.4-mbstring php7.4-intl php7.4-bcmath php7.4-bz2 php7.4-readline php7.4-zip
+    && apt install -y php7.4-mysql php7.4-pgsql php7.4-curl php7.4-json php7.4-gd php7.4-mbstring php7.4-intl php7.4-bcmath php7.4-bz2 php7.4-readline php7.4-zip \
+## activate pdo_pgsql extension
+    && sed -rie 's/^;extension=pdo_pgsql$/extension=pdo_pgsql/' /opt/bitnami/php/lib/php.ini
 
 #Install composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \

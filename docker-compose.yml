@@ -3,27 +3,39 @@ version:  '3.7'
 networks:
   backend:
 
-volumes:
-  db_data:
-
 services:
 
   db:
-    image: mariadb:10.4.12
+    image: postgres:12-alpine
+    environment:
+      - POSTGRES_DB=main_db
+      - POSTGRES_USER=dev
+      - POSTGRES_PASSWORD=dev123
+      - PGDATA=/var/lib/postgresql/data/my_data
     restart: on-failure
     networks:
       - backend
     volumes:
-      - type: bind
-        source: ./docker/mysql/data
-        target: /var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: main_db
-      MYSQL_USER: dev
-      MYSQL_PASSWORD: dev123
+      - ./docker/db/postgresql:/var/lib/postgresql/data
     ports:
-      - "3306:3306"
+      - target: 5432
+        published: 5432
+        protocol: tcp
+#    image: mariadb:10.4.12
+#    restart: on-failure
+#    networks:
+#      - backend
+#    volumes:
+#      - type: bind
+#        source: ./docker/db/mysql
+#        target: /var/lib/mysql
+#    environment:
+#      MYSQL_ROOT_PASSWORD: root
+#      MYSQL_DATABASE: main_db
+#      MYSQL_USER: dev
+#      MYSQL_PASSWORD: dev123
+#    ports:
+#      - "3306:3306"
 
   nginx:
     image: nginx:1.15.3-alpine
