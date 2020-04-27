@@ -37,6 +37,15 @@ services:
 #    ports:
 #      - "3306:3306"
 
+  redis:
+    image: bitnami/redis:5.0
+    environment:
+      REDIS_PASSWORD: redis123
+    networks:
+      - backend
+    ports:
+      - 6379:6379
+
   nginx:
     image: nginx:1.15.3-alpine
     restart: on-failure
@@ -51,7 +60,6 @@ services:
       - '${NGINX_PORT}:80'
     depends_on:
       - php
-      - db
 
   php:
     build:
@@ -68,3 +76,6 @@ services:
       - type: bind
         source: ./apps/${APP_NAME}
         target: /app
+    depends_on:
+      - db
+      - redis
