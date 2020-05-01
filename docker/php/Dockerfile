@@ -4,6 +4,7 @@ FROM bitnami/php-fpm:7.4
 RUN apt-get update \
     && apt-get install -y \
     zlib1g-dev \
+    && apt install -y nano \
     && apt install -y curl wget gnupg2 ca-certificates lsb-release apt-transport-https \
     && wget https://packages.sury.org/php/apt.gpg \
     && apt-key add apt.gpg \
@@ -26,6 +27,8 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --filename=composer \
     && php -r "unlink('composer-setup.php');" \
     && mv composer /usr/local/bin/composer
+
+RUN apt-get install -y supervisor
 
 #Create user
 ARG USER_ID

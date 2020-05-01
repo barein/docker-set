@@ -13,6 +13,11 @@ build:
 .PHONY: start
 start:
 	docker-compose up -d
+	$(EXECROOT) service supervisor start
+	$(EXECROOT) ln -s /app/config/packages/dev/messenger_worker.conf /etc/supervisor/conf.d/
+	$(EXECROOT) supervisorctl reread
+	$(EXECROOT) supervisorctl update
+	$(EXECROOT) supervisorctl start all
 
 .PHONY: stop
 stop:
