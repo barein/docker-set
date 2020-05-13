@@ -33,7 +33,7 @@ exec:
 
 .PHONY: install
 install:
-	$(EXEC) composer install
+	$(EXEC) composer install --prefer-dist --no-progress --no-suggest --no-interaction --ignore-platform-reqs
 
 .PHONY: cc ## clear Symfony cache and warm it up
 cc:

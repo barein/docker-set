@@ -5,3 +5,4 @@ docker/db/postgresql/*
 apps/*
 !apps/.gitignore
 .env
+.idea
