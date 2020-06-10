@@ -13,7 +13,9 @@ RUN apt-get update \
 ##Install php7.4 extensions
     && apt install -y php7.4-mysql php7.4-pgsql php7.4-curl php7.4-json php7.4-gd php7.4-mbstring php7.4-intl php7.4-bcmath php7.4-bz2 php7.4-readline php7.4-zip \
 ## activate pdo_pgsql extension
-    && sed -rie 's/^;extension=pdo_pgsql$/extension=pdo_pgsql/' /opt/bitnami/php/lib/php.ini \
+#    && sed -rie 's/^;extension=pdo_pgsql$/extension=pdo_pgsql/' /opt/bitnami/php/lib/php.ini \
+##Disable opcache
+    && sed -rie 's/^opcache.enable = 1$/opcache.enable = 0/' /opt/bitnami/php/lib/php.ini \
 ##Install php redis extension
     && apt-get -y install autoconf \
     && apt-get -y install gcc make autoconf libc-dev pkg-config \

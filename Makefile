@@ -12,7 +12,7 @@ build:
 
 .PHONY: start
 start:
-	docker-compose up -d
+	docker-compose up -d --remove-orphans
 	$(EXECROOT) service supervisor start
 	$(EXECROOT) ln -s /app/config/packages/dev/messenger_worker.conf /etc/supervisor/conf.d/
 	$(EXECROOT) supervisorctl reread
