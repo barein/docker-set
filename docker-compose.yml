@@ -54,6 +54,10 @@ services:
         USER_ID: ${USER_ID}
         GROUP_ID: ${GROUP_ID}
         USERNAME: ${USERNAME}
+      environment:
+        JWT_PRIVATE_KEY_PATH: /app/config/jwt/private.pem
+        JWT_PUBLIC_KEY_PATH: /app/config/jwt/public.pem
+        JWT_KEY_PASS_PHRASE: passphrase
     restart: on-failure
     networks:
       - backend

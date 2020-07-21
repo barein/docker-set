@@ -67,4 +67,4 @@ functional-tests:
 
 tests: unit-tests functional-tests
 
-ci: cs-dump stan
+ci: cs-dump stan tests
