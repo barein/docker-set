@@ -52,8 +52,13 @@ RUN addgroup --gid $GROUP_ID $USERNAME \
       /opt/bitnami/php/tmp \
       /opt/bitnami/php/logs
 
+COPY docker/php/create_jwt_keys.sh /bin/create_jwt_keys
+RUN chmod +x /bin/create_jwt_keys
+
 USER $USERNAME
 
 WORKDIR /app
+
+RUN create_jwt_keys
 
 RUN PATH=$PATH:/apps/vendor/bin:bin
