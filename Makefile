@@ -31,7 +31,7 @@ exec:
 	$(EXEC) bash
 
 
-#### PROJECT UTILITIES ####
+######## PROJECT UTILITIES ########
 
 composer:
 	$(EXEC) composer install --prefer-dist --no-progress --no-suggest --no-interaction --ignore-platform-reqs
@@ -41,11 +41,24 @@ cc:
 	$(EXECROOT) rm -rf var/cache/*
 	$(EXEC) $(CONSOLE) cache:clear
 
+
+######## DATABASE ########
+
 fixture:
 	$(EXEC) $(CONSOLE) hautelook:fixture:load --no-interaction --purge-with-truncate --no-bundles
 
+db-drop:
+	$(EXEC) $(CONSOLE) doctrine:database:drop --force
 
-#### CONTINUOUS INTEGRATION ####
+db-create:
+	$(EXEC) $(CONSOLE) doctrine:database:create
+
+db-play-migrations:
+	$(EXEC) $(CONSOLE) do:mi:mi -n
+
+db-restore: db-drop db-create db-play-migrations fixture
+
+######## CONTINUOUS INTEGRATION ########
 
 ## Dump php-cs-fixer errors
 cs-dump:
