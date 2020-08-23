@@ -24,6 +24,8 @@ start:
 stop:
 	docker-compose down
 
+restart: stop start
+
 exec_root:
 	$(EXECROOT) bash
 
@@ -56,7 +58,9 @@ db-create:
 db-play-migrations:
 	$(EXEC) $(CONSOLE) do:mi:mi -n
 
-db-restore: db-drop db-create db-play-migrations fixture
+db-restore: db-drop db-create db-play-migrations
+
+db-restore-with-fixture: db-drop db-create db-play-migrations fixture
 
 ######## CONTINUOUS INTEGRATION ########
 
