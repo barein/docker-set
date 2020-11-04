@@ -36,7 +36,7 @@ exec:
 ######## PROJECT UTILITIES ########
 
 composer:
-	$(EXEC) composer install --prefer-dist --no-progress --no-suggest --no-interaction --ignore-platform-reqs
+	$(EXEC) composer install --prefer-dist --no-progress --no-interaction --ignore-platform-reqs
 
 ## clear Symfony cache
 cc:
