@@ -17,7 +17,7 @@ RUN apt-get update \
 ##Disable opcache
     && sed -rie 's/^opcache.enable = 1$/opcache.enable = 0/' /opt/bitnami/php/lib/php.ini \
 ##Give more memory to php (phpStan error)
-    && sed -rie 's/^memory_limit = 128M = 1$/memory_limit = 500M/' /opt/bitnami/php/lib/php.ini \
+    && sed -rie 's/^memory_limit = 128M$/memory_limit = 500M/' /opt/bitnami/php/lib/php.ini \
 ##Install php redis extension
     && apt-get -y install autoconf \
     && apt-get -y install gcc make autoconf libc-dev pkg-config \
