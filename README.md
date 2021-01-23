@@ -9,7 +9,7 @@ At the root directory of this docker-set project, create a .env file based on .e
 If you don't intend to use Makefile commands to build the containers change also `USER_ID`, `GROUP_ID` and `USERNAME` env vars with your local user info (see `id` command).
 
 Set doctrine.dbal.server_version to '10.4.12', in doctrine.yaml.
-Add `DATABASE_URL` env var to the Sf4 .env.local file. Same for any other required env var.
+Add `DATABASE_URL` env var to the Sf4 .env.local file with "mysql://dev:dev123@db:3306/main_db"". Same for any other required env var.
 
 Run `make build` and then `make start`.
 
