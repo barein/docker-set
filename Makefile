@@ -42,7 +42,7 @@ composer:
 cc:
 	$(EXECROOT) rm -rf var/cache/*
 	$(EXEC) $(CONSOLE) cache:clear
-
+	$(EXEC) composer dump-autoload
 
 ######## DATABASE ########
 

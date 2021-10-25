@@ -8,10 +8,10 @@ RUN apt-get update \
     && apt install -y curl wget gnupg2 ca-certificates lsb-release apt-transport-https \
     && wget https://packages.sury.org/php/apt.gpg \
     && apt-key add apt.gpg \
-    && echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/php7.list \
+    && echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php7.list \
     && apt update \
 ##Install php7.4 extensions
-    && apt install -y php7.4-mysql php7.4-pgsql php7.4-curl php7.4-json php7.4-gd php7.4-mbstring php7.4-intl php7.4-bcmath php7.4-bz2 php7.4-readline php7.4-zip \
+    && apt install -y php7.4-mysql php7.4-pgsql php7.4-curl php7.4-json php7.4-gd php7.4-mbstring php7.4-intl php7.4-bcmath php7.4-bz2 php7.4-readline php7.4-zip php7.4-amqp \
 ## activate pdo_pgsql extension
 #    && sed -rie 's/^;extension=pdo_pgsql$/extension=pdo_pgsql/' /opt/bitnami/php/lib/php.ini \
 ##Disable opcache
@@ -19,15 +19,18 @@ RUN apt-get update \
 ##Give more memory to php (phpStan error)
     && sed -rie 's/^memory_limit = 128M$/memory_limit = 500M/' /opt/bitnami/php/lib/php.ini \
 ##Install php redis extension
-    && apt-get -y install autoconf \
     && apt-get -y install gcc make autoconf libc-dev pkg-config \
     && printf "\n" | pecl install redis \
-    && sed -i '$ a extension=redis.so' /opt/bitnami/php/lib/php.ini
+    && sed -i '$ a extension=redis.so' /opt/bitnami/php/lib/php.ini \
+##Install php amqp extension
+    && apt-get -y install libssl-dev librabbitmq-dev \
+    && printf "\n" | pecl install amqp \
+    && sed -i '$ a extension=amqp.so' /opt/bitnami/php/lib/php.ini
 
 
 #Install composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
-    && php -r "if (hash_file('sha384', 'composer-setup.php') === '756890a4488ce9024fc62c56153228907f1545c228516cbf63f885e036d37e9a59d27d63f46af1d4d07ee0f76181c7d3') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
+    && php -r "if (hash_file('sha384', 'composer-setup.php') === '906a84df04cea2aa72f40b5f787e49f22d4c2f19492ac310e8cba5b96ac8b64115ac402c8cd292b8a03482574915d1a8') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
     && php composer-setup.php --filename=composer \
     && php -r "unlink('composer-setup.php');" \
     && mv composer /usr/local/bin/composer
