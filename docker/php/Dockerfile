@@ -25,8 +25,10 @@ RUN apt-get update \
 ##Install php amqp extension
     && apt-get -y install libssl-dev librabbitmq-dev \
     && printf "\n" | pecl install amqp \
-    && sed -i '$ a extension=amqp.so' /opt/bitnami/php/lib/php.ini
-
+    && sed -i '$ a extension=amqp.so' /opt/bitnami/php/lib/php.ini \
+##Install nodejs
+    && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
+    && apt install nodejs
 
 #Install composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
