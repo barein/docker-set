@@ -35,7 +35,7 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php -r "unlink('composer-setup.php');" \
     && mv composer /usr/local/bin/composer
 
-RUN apt-get install -y supervisor
+#RUN apt-get install -y supervisor
 
 #Create user
 ARG USER_ID

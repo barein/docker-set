@@ -10,6 +10,7 @@ services:
     restart: on-failure
     networks:
       - backend
+# TODO : use real volume
     volumes:
       - type: bind
         source: ./docker/db/mysql
